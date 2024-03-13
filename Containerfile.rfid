@@ -1,0 +1,21 @@
+# Use the base Python image with Poetry
+FROM python-poetry-base
+
+# Install gcc and other dependencies
+RUN apt-get update && apt-get install -y gcc
+
+# Set the working directory in the container to /app
+WORKDIR /app
+
+# Disable the creation of a virtual environment
+RUN poetry config virtualenvs.create false
+
+# copy project files
+COPY /src/rfid_service /app
+
+# Install specific packages
+RUN poetry install
+
+
+# Run your application
+CMD ["poetry", "run", "python", "main.py"]
