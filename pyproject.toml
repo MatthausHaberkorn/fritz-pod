@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "fritz-pod"
+version = "0.1.0"
+description = "Phony like box for playing audio files"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "fritz_pod", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+spidev = "^3.6"
+mfrc522 = "^0.0.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
