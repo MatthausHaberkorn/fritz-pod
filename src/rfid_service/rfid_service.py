@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, List
 from rfid_reader import RFIDReader
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -12,22 +12,15 @@ class RFIDData:
 
 
 class RFIDService:
-    def __init__(
-        self,
-        log_callback: Callable[[int, str], None],
-        store_callback: Callable[[int, str], None],
-        send_callback: Callable[[int, str], None],
-    ) -> None:
+    def __init__(self, callbacks: List[Callable[[RFIDData], None]]) -> None:
         """
-        Initializes the RFIDService with three callback functions and an RFIDReader.
-        The callback functions should take RFIDData as an argument.
+        Initializes the RFIDService with a list of callback functions and an RFIDReader.
+        Each callback function should take an RFIDData instance as an argument.
 
         Assures:
-            An RFIDService instance is created with three callback functions and an RFIDReader.
+            An RFIDService instance is created with a list of callback functions and an RFIDReader.
         """
-        self.log_callback = log_callback
-        self.store_callback = store_callback
-        self.send_callback = send_callback
+        self.callbacks = callbacks
         self.reader = RFIDReader()
 
     def handle_data(self, id: int, text: str) -> None:
@@ -35,13 +28,12 @@ class RFIDService:
         Handles the data from the RFID reader.
 
         Assures:
-            The log_callback, store_callback, and send_callback functions are called with the card data.
+            Each callback function in self.callbacks is called with the card data.
         """
         data = RFIDData(id, text)
         print(f"Recieved new RFID data with {str(data)}")
-        self.log_callback(data)
-        self.store_callback(data)
-        self.send_callback(data)
+        for callback in self.callbacks:
+            callback(data)
 
     def start(self) -> None:
         """
@@ -52,8 +44,8 @@ class RFIDService:
         Assures:
             The RFID reader starts listening for cards, and the handle_data method is called with the card data every time a card is read.
         """
-        self.reader.listen_for_card(self.handle_data)
         print("Service started")
+        self.reader.listen_for_card(self.handle_data)
 
     def stop(self) -> None:
         """

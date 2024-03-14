@@ -16,6 +16,12 @@ COPY /src/rfid_service /app
 # Install specific packages
 RUN poetry install
 
+# Copy the script into the image
+COPY modify_mfrc522.sh /tmp/modify_mfrc522.sh
+
+# Run the script
+RUN chmod +x /tmp/modify_mfrc522.sh && /tmp/modify_mfrc522.sh
+
 
 # Run your application
 CMD ["poetry", "run", "python", "main.py"]

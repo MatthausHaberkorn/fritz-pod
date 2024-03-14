@@ -17,7 +17,6 @@ class RFIDReader:
              running flag set to True.
         """
         self.reader: SimpleMFRC522 = SimpleMFRC522()
-        self.running: bool = True
         self.last_read_id = None
         self.last_read_time = 0
         self.debounce_time = debounce_time
@@ -45,7 +44,6 @@ class RFIDReader:
             self.last_read_id = id
             self.last_read_time = current_time
             return id, text
-
         return None, None
 
     def listen_for_card(self, callback: Callable[[int, str], None]) -> None:
@@ -60,14 +58,16 @@ class RFIDReader:
             The callback function is called with the card data every time a card is read.
             There is a delay of 1 second after each successful read to prevent immediate subsequent reads of the same card.
         """
-        while self.running:
-            try:
 
+        try:
+            while True:
                 id, text = self.read()
                 if id is not None and text is not None:
                     callback(id, text)
-            except:
-                GPIO.cleanup()
+                time.sleep(1)
+        except:
+            GPIO.cleanup()
+            raise
 
     def stop_listening(self) -> None:
         """

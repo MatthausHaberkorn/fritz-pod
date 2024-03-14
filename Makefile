@@ -7,10 +7,11 @@ build-rfid:
 	podman build -f Containerfile.rfid -t rfid_service .
 
 create-pod:
-	if ! podman pod exists fritz_pod ; then podman pod create --name fritz_pod ; fi
+	podman pod rm -f fritz_pod || true
+	podman pod create --name fritz_pod
 
 run-rfid: create-pod
 	podman rm -f rfid_service_container || true
-	podman run --privileged --group-add=keep-groups -v /sys:/sys -v /dev:/dev --device /dev/gpiomem --device /dev/mem --device /dev/spidev0.0 --device /dev/spidev0.1 --pod fritz_pod --name rfid_service_container -d rfid_service
+	podman run --privileged --group-add=keep-groups -v /sys:/sys -v /dev:/dev --pod fritz_pod --name rfid_service_container --cpu-quota=33000 --cpu-period=100000 -d rfid_service
 
 all: build-base build-rfid run-rfid
