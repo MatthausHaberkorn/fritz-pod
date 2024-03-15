@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api import rfid_card
+from .api.endpoints import rfid_card
 
 app = FastAPI()
 

@@ -23,4 +23,4 @@ async def create_rfid_card(
             status_code=400,
             detail=f"RFID_code {rfid_code} and writable_tag {writable_tag} are already in use",
         )
-    return rfid_card_crud.create(db=db, card=card)
+    return rfid_card_crud.create(db=db,rfid_code=rfid_code, writable_tag=writable_tag, card=card)
