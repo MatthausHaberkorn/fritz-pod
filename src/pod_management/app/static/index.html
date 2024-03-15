@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create RFID</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>Create RFID</h1>
+    <form id="rfid-form">
+        <label for="rfid">RFID:</label><br>
+        <input type="text" id="rfid" name="rfid"><br>
+        <label for="audio_file">Audio File:</label><br>
+        <input type="text" id="audio_file" name="audio_file"><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $("#rfid-form").submit(function (e) {
+                e.preventDefault();
+
+                var rfid = $("#rfid").val();
+                var audio_file = $("#audio_file").val();
+
+                $.post(`http://localhost:8000/rfid/${rfid}`, { audio_file: audio_file })
+                    .done(function (data) {
+                        alert("RFID created successfully.");
+                    })
+                    .fail(function () {
+                        alert("Error creating RFID.");
+                    });
+            });
+        });
+    </script>
+</body>
+
+</html>

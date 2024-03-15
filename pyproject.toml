@@ -10,6 +10,12 @@ packages = [{include = "fritz_pod", from = "src"}]
 python = "^3.11"
 spidev = "^3.6"
 mfrc522 = "^0.0.7"
+duckdb = "^0.10.0"
+sqlalchemy = "^2.0.28"
+fastapi = "^0.110.0"
+aiofiles = "^23.2.1"
+uvicorn = "^0.28.0"
+duckdb-engine = "^0.11.2"
 
 
 [build-system]
