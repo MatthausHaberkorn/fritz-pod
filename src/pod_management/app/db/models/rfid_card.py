@@ -1,5 +1,4 @@
-from sqlalchemy import Column, Integer, Sequence, String, DateTime, Float, Enum
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, DateTime, Float, Enum
 from app.constants import FileType
 from app.db import Base
 
