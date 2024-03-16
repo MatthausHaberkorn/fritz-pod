@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Float, Enum
+from sqlalchemy import Column, Integer, String, DateTime, Float, Enum, func
 from app.constants import FileType
 from app.db import Base
 
@@ -37,12 +37,16 @@ class RFIDCard(Base):
     file_type = Column(
         Enum(FileType),
     )
-    date = Column(
-        DateTime,
-    )
+    date = Column(DateTime, default=func.now())
     duration = Column(
         Float,
     )
     size = Column(
         Float,
+    )
+    source = Column(
+        String,
+    )
+    display_text = Column(
+        String,
     )

@@ -1,4 +1,6 @@
 from fastapi import Query
+
+
 async def pagination(
     skip: int = Query(0, ge=0),
     limit: int = Query(10, ge=0),

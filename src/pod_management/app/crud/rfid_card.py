@@ -3,7 +3,7 @@ from sqlalchemy import select
 from app.db.models.rfid_card import RFIDCard
 from app.api.models.rfid_card import RFIDCardCreate
 from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi import HTTPException, status
+from fastapi import status
 
 
 async def create(
@@ -47,9 +47,5 @@ async def get_by_rfid_code_and_writable_tag_or_404(
 
 
 async def get_rfid_cards(db: AsyncSession, skip: int, limit: int):
-    result = await db.execute(
-        select(RFIDCard)
-        .offset(skip)
-        .limit(limit)
-    )
+    result = await db.execute(select(RFIDCard).offset(skip).limit(limit))
     return result.scalars().all()
