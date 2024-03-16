@@ -4,18 +4,20 @@ from app.api.models.rfid_card import RFIDCardCreate
 from app.db.session import get_db
 from sqlalchemy.orm import Session
 from app.crud import rfid_card as rfid_card_crud
+from sqlalchemy.ext.asyncio import AsyncSession
+
+
 
 router = APIRouter()
-
 
 @router.post("/{rfid_code}/{writable_tag}")
 async def create_rfid_card(
     rfid_code: str,
     writable_tag: str,
     card: RFIDCardCreate,
-    db: Session = Depends(get_db),
+    db: AsyncSession = Depends(get_db),
 ):
-    db_card = rfid_card_crud.get_by_rfid_code_and_writable_tag(
+    db_card = await rfid_card_crud.get_by_rfid_code_and_writable_tag(
         db, rfid_code=rfid_code, writable_tag=writable_tag
     )
     if db_card:
@@ -23,4 +25,4 @@ async def create_rfid_card(
             status_code=400,
             detail=f"RFID_code {rfid_code} and writable_tag {writable_tag} are already in use",
         )
-    return rfid_card_crud.create(db=db,rfid_code=rfid_code, writable_tag=writable_tag, card=card)
+    return await rfid_card_crud.create(db=db, rfid_code=rfid_code, writable_tag=writable_tag, card=card)

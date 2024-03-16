@@ -4,9 +4,6 @@ from app.constants import FileType
 from app.db import Base
 
 
-card_id_seq = Sequence("card_id_seq")
-
-
 class RFIDCard(Base):
     """
     Represents an RFID card in the database.
@@ -24,13 +21,7 @@ class RFIDCard(Base):
 
     __tablename__ = "rfid_cards"
 
-    card_id = Column(
-        Integer,
-        card_id_seq,
-        primary_key=True,
-        index=True,
-        server_default=card_id_seq.next_value(),
-    )
+    card_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     rfid_code = Column(
         String,
         unique=True,
