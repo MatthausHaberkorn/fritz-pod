@@ -14,6 +14,7 @@ sqlalchemy = {extras = ["asyncio", "mypy"], version = "^2.0.28"}
 fastapi = "^0.110.0"
 uvicorn = "^0.28.0"
 aiosqlite = "^0.20.0"
+pydantic-settings = "^2.2.1"
 
 
 [build-system]

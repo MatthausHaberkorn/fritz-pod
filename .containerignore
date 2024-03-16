@@ -1,2 +1,4 @@
-__pycache__
-.env
+__pycache__/
+.env/
+fritzpod.db
+.ruff_cache/

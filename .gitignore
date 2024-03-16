@@ -161,3 +161,4 @@ cython_debug/
 fritz-pod.code-workspace
 testi.py
 fritzpod.db*
+.ruff_cache/
