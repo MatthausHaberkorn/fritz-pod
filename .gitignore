@@ -162,3 +162,5 @@ fritz-pod.code-workspace
 testi.py
 fritzpod.db*
 .ruff_cache/
+pod_management.tar
+rfid_service.tar
