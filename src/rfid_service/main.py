@@ -25,7 +25,6 @@ api_client = APIClient()
 
 @register_callback
 def request_audio(data: RFIDData) -> None:
-
     return api_client.request_audio(data)
 
 
