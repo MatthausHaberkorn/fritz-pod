@@ -1,6 +1,6 @@
-from sqlalchemy import Column, ForeignKey, Integer, DateTime, func
-from sqlalchemy.orm import relationship
 from app.db import Base
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, func
+from sqlalchemy.orm import relationship
 
 
 class PlayStatistic(Base):

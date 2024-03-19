@@ -1,10 +1,9 @@
+from typing import Optional
+
+from app.api.models.play_statistic import PlayStatisticResponse
+from app.db.models.play_statistic import PlayStatistic
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from app.db.models.play_statistic import PlayStatistic
-from app.api.models.play_statistic import PlayStatisticResponse
-
-from typing import Optional
 
 
 async def create(db: AsyncSession, card_id: int) -> Optional[PlayStatistic]:

@@ -1,12 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.ext.asyncio import AsyncSession
-from app.db.session import get_db
-from app.crud.rfid_card import get_by_rfid_code_and_writable_tag
-from app.crud.play_statistic import create, get_play_statistics
 from app.api.models.play_statistic import PlayStatisticResponse
-from fastapi import status
-
+from app.crud.play_statistic import create, get_play_statistics
+from app.crud.rfid_card import get_by_rfid_code_and_writable_tag
+from app.db.session import get_db
 from app.dependencies import pagination
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter()
 

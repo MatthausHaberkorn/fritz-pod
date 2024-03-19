@@ -1,4 +1,5 @@
 import httpx
+
 from app.backend.settings import settings
 
 rfid_card_service_url = f"{settings.pod_management_service_url}/rfid_card"

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from app.schemas.play import PlayResponse
-import httpx
+
 from app.backend.settings import settings
+from app.schemas.play import PlayResponse
 from app.services.pod_management import get_rfid_card, send_play_statistic
 
 router = APIRouter()
