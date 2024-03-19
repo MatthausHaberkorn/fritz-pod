@@ -1,21 +1,21 @@
 from fastapi import HTTPException
 from sqlalchemy import select
 from app.db.models.rfid_card import RFIDCard
-from app.api.models.rfid_card import RFIDCardCreate
+from app.api.models.rfid_card import RFIDCardCreate, RFIDCardResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import status
 
 
 async def create(
     db: AsyncSession, rfid_code: str, writable_tag: str, card: RFIDCardCreate
-):
+) -> RFIDCardResponse:
     db_card = RFIDCard(
         rfid_code=rfid_code, writable_tag=writable_tag, **card.model_dump()
     )
     db.add(db_card)
     await db.commit()
     await db.refresh(db_card)
-    return db_card
+    return RFIDCardResponse.model_validate(db_card)
 
 
 async def get_by_rfid_code_and_writable_tag(

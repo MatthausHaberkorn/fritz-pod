@@ -12,3 +12,16 @@ class RFIDCardCreate(BaseModel):
     size: Optional[float] = Field(..., gt=0)
     source: Optional[str]
     display_text: Optional[str]
+
+    class Config:
+        from_attributes = True
+
+
+class RFIDCardResponse(RFIDCardCreate):
+    card_id: int
+    rfid_code: str
+    writable_tag: str
+    date: datetime
+
+    class Config:
+        from_attributes = True

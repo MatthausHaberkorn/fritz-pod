@@ -1,8 +1,11 @@
-import datetime
+from datetime import datetime
 from pydantic import BaseModel
 
 
 class PlayStatisticResponse(BaseModel):
-    id: int
+    play_id: int
     card_id: int
-    created_at: datetime
+    date: datetime
+
+    class Config:
+        from_attributes = True

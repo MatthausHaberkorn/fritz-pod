@@ -1,6 +1,6 @@
 # app/api/endpoints/rfid_cards.py
 from fastapi import APIRouter, HTTPException, Depends
-from app.api.models.rfid_card import RFIDCardCreate
+from app.api.models.rfid_card import RFIDCardCreate, RFIDCardResponse
 from app.db.session import get_db
 from app.crud import rfid_card as rfid_card_crud
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -11,13 +11,13 @@ from app.dependencies import pagination
 router = APIRouter()
 
 
-@router.post("/{rfid_code}/{writable_tag}")
+@router.post("/{rfid_code}/{writable_tag}", response_model=RFIDCardResponse)
 async def create_rfid_card(
     rfid_code: str,
     writable_tag: str,
     card: RFIDCardCreate,
     db: AsyncSession = Depends(get_db),
-):
+) -> RFIDCardResponse:
     db_card = await rfid_card_crud.get_by_rfid_code_and_writable_tag(
         db, rfid_code=rfid_code, writable_tag=writable_tag
     )

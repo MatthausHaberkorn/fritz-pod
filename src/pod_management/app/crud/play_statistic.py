@@ -1,14 +1,13 @@
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.models.play_statistic import PlayStatistic
-
+from app.api.models.play_statistic import PlayStatisticResponse
 
 from typing import Optional
 
 
-async def create_statistic_entry(
-    db: AsyncSession, card_id: int
-) -> Optional[PlayStatistic]:
+async def create(db: AsyncSession, card_id: int) -> Optional[PlayStatistic]:
     """
     Create a new PlayStatistic record.
 
@@ -27,4 +26,9 @@ async def create_statistic_entry(
     db.add(play_statistic)
     await db.commit()
     await db.refresh(play_statistic)
-    return play_statistic
+    return PlayStatisticResponse.model_validate(play_statistic)
+
+
+async def get_play_statistics(db: AsyncSession, skip: int, limit: int):
+    result = await db.execute(select(PlayStatistic).offset(skip).limit(limit))
+    return result.scalars().all()

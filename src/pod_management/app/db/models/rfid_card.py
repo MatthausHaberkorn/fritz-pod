@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, Float, Enum, func
 from app.constants import FileType
 from app.db import Base
+from sqlalchemy.orm import relationship
 
 
 class RFIDCard(Base):
@@ -47,6 +48,9 @@ class RFIDCard(Base):
     source = Column(
         String,
     )
-    display_text = Column(
-        String,
+    display_text = (
+        Column(
+            String,
+        ),
     )
+    play_statistics = relationship("PlayStatistic", back_populates="rfid_card")
