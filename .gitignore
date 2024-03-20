@@ -164,3 +164,4 @@ fritzpod.db*
 .ruff_cache/
 pod_management.tar
 rfid_service.tar
+file_storage/
